@@ -260,7 +260,7 @@ function App()
                value={square.value}
                wrong={square.wrong}
                typed={square.typed}
-               width={(width <= 768) ? (90 - (2 * wordData.word.length)) / wordData.word.length + "vw" : "50px"}
+               width={(width <= 768) ? ((88 / wordData.word.length) - 2) + "vw" : "50px"}
                fontSize={(width <= 768) ? ((90 - (2 * wordData.word.length)) / wordData.word.length) / 1.5 + "vw" : "25px"}
             />
          }));
