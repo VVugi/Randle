@@ -105,58 +105,64 @@ function App()
          setStats(localStats);
       }
 
-      // if(localWordData != null && localWordData.date == new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate())
       
-      var date = new Date();
-      var now_utc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-      
-      let changeTime = new Date(localWordData.date)
-      changeTime.setDate(changeTime.getDate() + 1);
-
-      let currentTime = new Date(now_utc)
-      
-      if(localWordData != null && changeTime > currentTime)
+      if(localWordData != null)
       {
-         if(width <= 768)
-         {
-            setMainWidth(90 + "vw");
-         }
-         else
-         {
-            setMainWidth((50 + (60 * localWordData.word.length)) + "px");
-         }
+         var date = new Date();
+         var now_utc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
          
-         setRow(localWordData.attempt);
-         setWordData(localWordData);
- 
-         const attempts = localWordData.attempts.map(word => word).join('');
- 
-         let newSquaresData = [];
- 
-         let tempRow = 1;
-         let tempCol = 1;
- 
-         for(let i = 1; i <= (localWordData.word.length * (localWordData.word.length + 1)); i++)
+         let changeTime = new Date(localWordData.date);
+         changeTime.setDate(changeTime.getDate() + 1);
+
+         let currentTime = new Date(now_utc);
+
+         if(changeTime > currentTime)
          {
-            if(attempts[i - 1] != undefined)
+            if(width <= 768)
             {
-               newSquaresData.push({row: tempRow, col: tempCol, value: attempts[i - 1].charCodeAt()});
+               setMainWidth(90 + "vw");
             }
             else
             {
-               newSquaresData.push({row: tempRow, col: tempCol, value: ""});
+               setMainWidth((50 + (60 * localWordData.word.length)) + "px");
             }
- 
-            if(i % localWordData.word.length == 0)
+            
+            setRow(localWordData.attempt);
+            setWordData(localWordData);
+    
+            const attempts = localWordData.attempts.map(word => word).join('');
+    
+            let newSquaresData = [];
+    
+            let tempRow = 1;
+            let tempCol = 1;
+    
+            for(let i = 1; i <= (localWordData.word.length * (localWordData.word.length + 1)); i++)
             {
-               tempRow++;
-               tempCol = 0;
+               if(attempts[i - 1] != undefined)
+               {
+                  newSquaresData.push({row: tempRow, col: tempCol, value: attempts[i - 1].charCodeAt()});
+               }
+               else
+               {
+                  newSquaresData.push({row: tempRow, col: tempCol, value: ""});
+               }
+    
+               if(i % localWordData.word.length == 0)
+               {
+                  tempRow++;
+                  tempCol = 0;
+               }
+    
+               tempCol++;
             }
- 
-            tempCol++;
+    
+            setSquaresData(newSquaresData);
          }
- 
-         setSquaresData(newSquaresData);
+         else
+         {
+            getOnlineWord();
+         }
       }
       else
       {
@@ -171,11 +177,10 @@ function App()
    
       if(data.statusCode || data.message == "API rate limit exceeded")
       {
-         console.clear(); //Same dirty solution
+         console.clear(); // Dirty solution whatevs security first
       }
 
       let newWordInfo = {
-         // date: (new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate()),
          date: data.publishDate,
          word: data.word,
          attempt: 1,
@@ -290,8 +295,6 @@ function App()
 
       if(found1)
       {
-         console.log("1era");
-
          return {
             ...found1,
             color: color
@@ -299,8 +302,6 @@ function App()
       }
       else if(found2)
       {
-         console.log("2nda");
-
          return {
             ...found2,
             color: color
@@ -308,8 +309,6 @@ function App()
       }
       else if(found3)
       {
-         console.log("3ra");
-
          return {
             ...found3,
             color: color
@@ -448,7 +447,7 @@ function App()
       
                   if(data.statusCode || data.message == "API rate limit exceeded")
                   {
-                     console.clear(); // Dirty solution whatevs security first
+                     console.clear(); // Same solution
 
                      if(data.statusCode == 404)
                      {
@@ -656,17 +655,17 @@ function App()
          }
       }));
 
-      const firstRandle = new Date('2023-05-31');
-      const today = new Date();
+      const firstRandle = new Date('2023-06-01T03:00:00.000Z');
+      const today = new Date('2023-06-02T03:01:00.000Z');
 
       const milliseconds = 1000 * 60 * 60 * 24;
 
-      const utc1 = Date.UTC(firstRandle.getFullYear(), firstRandle.getMonth(), firstRandle.getDate());
-      const utc2 = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+      const utc1 = Date.UTC(firstRandle.getFullYear(), firstRandle.getMonth(), firstRandle.getDate(), firstRandle.getHours(), firstRandle.getMinutes(), firstRandle.getSeconds());
+      const utc2 = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours(), today.getMinutes(), today.getSeconds());
 
-      const id = Math.floor((utc2 - utc1) / milliseconds);
+      const id = Math.ceil((utc2 - utc1) / milliseconds);
 
-      let copy = "Randle #" + id + " " + wordData.attempts.length + "/" + wordData.word.length + "\n";
+      let copy = "Randle #" + (id + 1) + " " + wordData.attempts.length + "/" + wordData.word.length + "\n";
 
       for(let i = 1; i < emojis.length + 1; i++)
       {
@@ -910,6 +909,3 @@ function App()
 }
 
 export default App
-
-//26 letras
-//2 especiales, enter y delete

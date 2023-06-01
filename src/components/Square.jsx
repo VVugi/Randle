@@ -8,18 +8,18 @@ export default function Square(props)
       {
          if(props.wrong % 2 == 0) //Dumbest solution but it works
          {
-            return "square wrong1 unselectable";
+            return "square wrong1";
          }
 
-         return "square wrong2 unselectable";
+         return "square wrong2";
       }
       
       if(props.animation != undefined)
       {
-         return "square-no-animation unselectable";
+         return "square-no-animation";
       }
 
-      return "square unselectable";
+      return "square";
    }
 
    function getTyped()

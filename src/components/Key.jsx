@@ -26,7 +26,7 @@ export default function key(props)
                WebkitTransition: "all .5s ease",
                MozTransition: "all .5s ease",
             }}
-            className="key unselectable"
+            className="key"
             id={props.value}>{props.value.toUpperCase()}
          </div>
       </div>
