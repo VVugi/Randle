@@ -454,3 +454,8 @@ li {
    -ms-user-select: none;
    user-select: none;
 } */
+
+.time-info {
+   display: flex;
+   justify-content: center;
+}

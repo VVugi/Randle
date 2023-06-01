@@ -104,7 +104,6 @@ function App()
       {
          setStats(localStats);
       }
-
       
       if(localWordData != null && localWordData.date && localWordData.date.length > 10)
       {
@@ -837,6 +836,10 @@ function App()
                            </Fragment>
                         )
                      })}
+                  </div>
+
+                  <div className="time-info">
+                     <h5 style={{backgroundColor: "transparent"}}>New word drops at {new Date("12/12/2023 03:00:00 UTC").getHours() + ":" + ((new Date("12/12/2023 03:00:00 UTC").getMinutes().toString().length == 1) ? "0" + new Date("12/12/2023 03:00:00 UTC").getMinutes() : new Date("12/12/2023 03:00:00 UTC").getMinutes())} in your time zone</h5>
                   </div>
                </div>
             }
