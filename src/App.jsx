@@ -740,7 +740,7 @@ function App()
                {banner.message}
             </div>
 
-            <div style={{width: mainWidth}} className="game-area">
+            <div style={{width: mainWidth, gap: (width <= 768) ? "1vw" : "10px"}} className="game-area">
                {squares}
             </div>
 
