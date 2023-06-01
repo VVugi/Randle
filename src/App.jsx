@@ -656,7 +656,7 @@ function App()
       }));
 
       const firstRandle = new Date('2023-06-01T03:00:00.000Z');
-      const today = new Date('2023-06-02T03:01:00.000Z');
+      const today = new Date();
 
       const milliseconds = 1000 * 60 * 60 * 24;
 
@@ -665,7 +665,7 @@ function App()
 
       const id = Math.ceil((utc2 - utc1) / milliseconds);
 
-      let copy = "Randle #" + (id + 1) + " " + wordData.attempts.length + "/" + wordData.word.length + "\n";
+      let copy = "Randle #" + id + " " + wordData.attempts.length + "/" + wordData.word.length + "\n";
 
       for(let i = 1; i < emojis.length + 1; i++)
       {
