@@ -609,8 +609,6 @@ function App()
                   return key;
                }));
             }
-            
-            // return colorKey(colorInfo.color, square.value);
          });
       }
    }, [squares]);
@@ -785,10 +783,10 @@ function App()
 
                   {wordData.finished &&
                      <div className="word-info">
-                        <h2>{wordData.word[0].toUpperCase() + wordData.word.substring(1)}: {wordData.definitions.map((definition, i) => <span key={i} className="italic">{definition.text + " "}</span>)}</h2>
+                        <h2 className="transparent-background">{wordData.word[0].toUpperCase() + wordData.word.substring(1)}: {wordData.definitions.map((definition, i) => <span key={i} className="transparent-background italic">{definition.text + " "}</span>)}</h2>
                         
                         {(wordData.attempts[wordData.attempts.length - 1] == wordData.word.toUpperCase()) &&
-                           <input style={{cursor: "pointer"}} type="button" onClick={() => copyResult()} value={copyButton} className="share-button" />
+                           <input style={{cursor: "pointer"}} type="button" onClick={() => copyResult()} value={copyButton} className="transparent-background share-button" />
                         }
                      </div>
                   }
