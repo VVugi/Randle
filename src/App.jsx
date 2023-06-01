@@ -106,7 +106,7 @@ function App()
       }
 
       
-      if(localWordData != null)
+      if(localWordData != null && localWordData.date && localWordData.date.length > 10)
       {
          var date = new Date();
          var now_utc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
