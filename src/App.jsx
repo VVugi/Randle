@@ -665,7 +665,7 @@ function App()
 
       const id = Math.ceil((utc2 - utc1) / milliseconds);
 
-      let copy = "Randle #" + id + " " + wordData.attempts.length + "/" + wordData.word.length + "\n";
+      let copy = "Randle #" + id + " " + (wordData.attempts.length > wordData.word.length ? wordData.word.length : wordData.attempts.length) + "/" + wordData.word.length + "\n";
 
       for(let i = 1; i < emojis.length + 1; i++)
       {
