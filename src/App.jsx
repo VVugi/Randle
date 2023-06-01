@@ -105,7 +105,17 @@ function App()
          setStats(localStats);
       }
 
-      if(localWordData != null && localWordData.date == new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate())
+      // if(localWordData != null && localWordData.date == new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate())
+      
+      var date = new Date();
+      var now_utc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+      
+      let changeTime = new Date(localWordData.date)
+      changeTime.setDate(changeTime.getDate() + 1);
+
+      let currentTime = new Date(now_utc)
+      
+      if(localWordData != null && changeTime > currentTime)
       {
          if(width <= 768)
          {
@@ -159,14 +169,19 @@ function App()
       const response = await fetch('https://api.wordnik.com/v4/words.json/wordOfTheDay?api_key=' + import.meta.env.VITE_API_KEY)
       const data = await response.json();
    
+      if(data.statusCode || data.message == "API rate limit exceeded")
+      {
+         console.clear(); //Same dirty solution
+      }
+
       let newWordInfo = {
-         date: (new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate()),
+         // date: (new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate()),
+         date: data.publishDate,
          word: data.word,
          attempt: 1,
          attempts: [],
          finished: false,
-         definitions: data.definitions,
-         id: data.contentProvider.id - 710
+         definitions: data.definitions
       };
  
       localStorage.setItem("wordData", JSON.stringify(newWordInfo));
@@ -433,6 +448,8 @@ function App()
       
                   if(data.statusCode || data.message == "API rate limit exceeded")
                   {
+                     console.clear(); // Dirty solution whatevs security first
+
                      if(data.statusCode == 404)
                      {
                         setBanner({visible: true, message: "Not in word list", time: 2000});
