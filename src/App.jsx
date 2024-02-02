@@ -5,8 +5,7 @@ import Key from "./components/Key";
 
 import {TbQuestionCircle, TbInfoCircle, TbChartBar, TbLetterX, TbHeart} from "react-icons/tb";
  
-function App()
-{
+function App() {
    const [width, setWidth] = useState(window.innerWidth);
 
    function handleWindowSizeChange()
@@ -85,8 +84,7 @@ function App()
       getLocalWord();
    }, [0]);
 
-   async function getLocalWord()
-   {
+   async function getLocalWord() {
       const localWordData = await JSON.parse(localStorage.getItem("wordData"));
       const localStats = await JSON.parse(localStorage.getItem("stats"));
 
@@ -169,8 +167,7 @@ function App()
       }
    }
 
-   async function getOnlineWord()
-   {
+   async function getOnlineWord() {
       const response = await fetch('https://api.wordnik.com/v4/words.json/wordOfTheDay?api_key=' + import.meta.env.VITE_API_KEY)
       const data = await response.json();
    
@@ -286,8 +283,7 @@ function App()
       }
    }, [squaresData]);
 
-   function colorKey(color, key)
-   {
+   function colorKey(color, key) {
       let found1 = keys1.find(key1 => key1.key.charCodeAt() == key);
       let found2 = keys1.find(key2 => key2.key.charCodeAt() == key);
       let found3 = keys1.find(key3 => key3.key.charCodeAt() == key);
@@ -315,8 +311,7 @@ function App()
       }
    }
 
-   function getColor(square, resultLetters, realResultLetters, currentRow)
-   {
+   function getColor(square, resultLetters, realResultLetters, currentRow) {
       let foundGreenLetter = realResultLetters.find(letter => letter.value == square.value && letter.id == square.col && square.row < row);
       let foundYellowLetter = resultLetters.filter(letter => letter.value == square.value && square.row < row);
 
@@ -628,8 +623,7 @@ function App()
       }
    }, [squares]);
 
-   function orderStats(a, b)
-   {
+   function orderStats(a, b) {
       if(a > b)
       {
          return 1;
@@ -638,8 +632,7 @@ function App()
       return -1;
    }
 
-   function copyResult()
-   {
+   function copyResult() {
       const emojis = (squares.map(square => {
          switch(square.props.color)
          {
@@ -664,7 +657,7 @@ function App()
 
       const id = Math.ceil((utc2 - utc1) / milliseconds);
 
-      let copy = "Randle #" + id + " " + (wordData.attempts.length > wordData.word.length ? wordData.word.length : wordData.attempts.length) + "/" + wordData.word.length + "\n";
+      let copy = "Randle #" + id + " " + wordData.attempts.length + "/" + (wordData.word.length + 1) + "\n";
 
       for(let i = 1; i < emojis.length + 1; i++)
       {
@@ -685,8 +678,7 @@ function App()
       setCopyButton("Copied to clipboard!");
    }
 
-   function triggerKey(keyCode)
-   {
+   function triggerKey(keyCode) {
       keyCode = keyCode == 8592 ? 8 : keyCode;
       keyCode = keyCode == 8629 ? 13 : keyCode;
 
@@ -863,7 +855,7 @@ function App()
                      <h3 style={{margin: 0}}>Notes:</h3>
                      <ul>
                         <li>This game was initially built as a personal project, any bugs will be eventually fixed</li>
-                        <li>I'm currently trying to raise the petition limit, please be patient!</li>
+                        <li>Petition limit was increased but its still pretty low, please be patient if the limit gets reached, sorry</li>
                      </ul>
 
                      <span className="hint">asleepyLoves</span>
